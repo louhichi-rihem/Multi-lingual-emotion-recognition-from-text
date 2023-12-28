@@ -12,5 +12,4 @@ Tech: Python, Natural Language Processing (NLP), Deep Learning, TensorFlow, Ktra
 ![343612269_932291378095384_1396891845990713666_n](https://github.com/louhichi-rihem/Multi-lingual-emotion-recognition-from-text/assets/129398762/62208a9e-fb7b-4502-9318-ec5a6fe71a19)
 
 ## An example of a text analysis in English :
-
-![341950774_511840874329644_940667691729609598_n](https://github.com/louhichi-rihem/Multi-lingual-emotion-recognition-from-text/assets/129398762/9d5fe1e9-1290-447a-9697-f61e20993a9b)
+![Capture](https://github.com/louhichi-rihem/Multi-lingual-emotion-recognition-from-text/assets/129398762/7c0253ee-a953-4de9-a302-4760a4287740)
