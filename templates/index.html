@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+
+    <style>
+        body{
+            background: #a8bcd5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            }
+		.centered {
+			width: 800px;
+			height: 500px;
+			background-color: #a8bcd5;
+			margin: auto;
+		}
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 200px;
+        }
+        .chart{
+            padding: 2rem;
+            border: 1px solid #f49131;
+            border-radius: 1rem;
+            background :#0f1614;
+            box-shadow: 0 0 16px rgba(117, 53, 53, 0.8);
+        }
+        .chart-heading{
+            font-family: "Rubik",sans-serif;
+            color: #a8bcd5;
+            text-transform: uppercase;
+            font-size: 24px;
+            text-align: center;
+        }
+	</style>
+</head>
+<body >
+
+
+    <div class="centered">
+        <h1>
+        <img src= 'https://ensi.rnu.tn/stylesheets/intranet/logo.png' width="140" height="100" />
+        multi-lingual emotion recognition from text</h1>
+        <form action="/" method="POST">
+            <div style="text-align: center;">
+                <input type="text" name="input" placeholder="Enter text here" style="width: 300px;">
+            </div>
+            <h1></h1>
+    
+            <div style="display: flex; align-items: center; justify-content: center;">
+            <button type="submit" style="width: 40x; height: 40px; background-color: rgb(108, 122, 230); ">Check Sentiments</button>
+            </div>
+            <h1></h1>
+            
+            <div style="text-align: center;">
+                <p style="font-size: 20px;color: rgb(232, 9, 162);"></p>
+            </div>
+            <div class="container">
+                <div class="chart">
+                    <canvas id="barchart" width="300" height="300"></canvas>
+                </div>
+                <div class="details">
+                    <ul></ul>
+                </div>
+            </div>
+
+        </form>
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+
+
+<script>
+  const chartData={
+    labels: ['anger','anticipation','disgust','fear','joy','love','optimism','pessimism','sadness', 'surprise','trust'],
+    
+  };
+
+  const form = document.querySelector('form');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = form.elements['input'].value;
+    fetch('/', {
+        method: 'POST',
+        body: new FormData(form)
+    })
+    .then(response => response.json())
+    .then(data => {
+const ctx = document.getElementById('barchart').getContext('2d');
+const ul=document.querySelector(".container .details ul")
+
+  const barchart =new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['anger','anticipation','disgust','fear','joy','love','optimism','pessimism','sadness', 'surprise','trust'],
+      datasets: [{
+        label: '# of emotion',
+        data: data,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 195, 64, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 195, 64, 0.2)'
+        ],
+        borderColor :[
+          'rgba(255, 195, 123, 1)',
+          'rgba(255, 195, 235, 1)',
+          'rgba(255, 195, 86, 1)',
+          'rgba(255, 195, 192, 1)',
+          'rgba(255, 195, 255, 1)',
+          'rgba(255, 195, 64, 1)',
+          'rgba(255, 195, 235, 1)',
+          'rgba(255, 195, 86, 1)',
+          'rgba(255, 195, 192, 1)',
+          'rgba(255, 195, 123, 1)',
+          'rgba(255, 195, 255, 1)'
+        ]
+      }]
+    },
+    options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    });
+
+
+});
+
+const populateUl=() => {
+    chartData.labels.forEach((l,i) => {
+      let li = document.createElement("li");
+      li.innerHTML=`${l}: <span class='percentage'>${data[i]}%</span>`;
+      ul.appendChild(li);
+    });
+  };
+  
+  populateUl();
+
+
+</script>
